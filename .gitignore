@@ -1,0 +1,41 @@
+# Torch7u .gitignore
+
+# Temporary files
+*.t7
+*.tmp
+*.log
+
+# Build artifacts
+build/
+*.o
+*.so
+*.dylib
+*.dll
+
+# Cache and compiled files
+*.luac
+*.pyc
+__pycache__/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Test outputs
+test_output/
+checkpoints/
+
+# Documentation builds
+docs/_build/
+site/
+
+# Backup files
+*.bak
+*.backup
+
+# OS files
+Thumbs.db
