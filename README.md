@@ -12,6 +12,7 @@ This repository contains all repositories from the [torch](https://github.com/to
 - **Plugin System**: Extensible architecture for custom functionality
 - **Training Framework**: Integrated training interface that works across all modules
 - **Node9 OS Framework**: System-level operations with Penrose Lua utilities, kernel functions, and schedulers
+- **Tensor Logic**: Neuro-symbolic AI unifying symbolic logic and neural networks through Einstein summation
 
 ## 🚀 Quick Start
 
@@ -31,6 +32,10 @@ torch7u.configure({
 -- Use integrated features
 local model = nn.Sequential():add(nn.Linear(10, 5))
 torch7u.models.register('my_model', model)
+
+-- Use Tensor Logic for neuro-symbolic AI
+local tl = torch7u.tensor_logic
+tl.demo()  -- Run logic programming and MLP demos
 ```
 
 See [INTEGRATION.md](INTEGRATION.md) for complete documentation and examples.
@@ -98,6 +103,7 @@ This monorepo includes the following torch components:
 - **xt** - Extended tensor operations
 - **nimbix-admin** - Nimbix administration
 - **node9** - Node9 OS framework (Inferno OS with Lua/LuaJIT)
+- **tensor-logic** - Neuro-symbolic AI via Tensor Logic (Pedro Domingos' unified framework)
 
 ## Source
 
@@ -187,6 +193,40 @@ local merged = tablex.merge({a=1}, {b=2}, true)
 -- See node9/README.md for complete documentation
 ```
 
+### Tensor Logic: Neuro-Symbolic AI
+
+Use tensor logic to unify symbolic AI and neural networks:
+
+```lua
+-- Access tensor logic through torch7u
+local tl = torch7u.tensor_logic
+
+-- Example: Logic Programming (Symbolic AI)
+local Parent = tl.fromMatrix('Parent', {'x', 'y'}, {
+    {0, 1, 0, 0},  -- Alice is parent of Bob
+    {0, 0, 1, 1}   -- Bob is parent of Charlie and Diana
+})
+
+-- Compute transitive closure: Ancestor[x,z] = Σ_y Ancestor[x,y] · Parent[y,z]
+local Ancestor = tl.clone(Parent)
+local newAncestors = tl.einsum('xy,yz->xz', Ancestor, Parent)
+-- Result: Alice is now ancestor of Charlie and Diana!
+
+-- Example: Neural Network (MLP for XOR)
+local Input = tl.fromVector('Input', 'i', {1, 0})
+local W1 = tl.createTensor('W1', {'h', 'i'}, {2, 2}, {1, 1, 1, 1})
+local Hidden = tl.relu(tl.einsum('hi,i->h', W1, Input))
+-- Output layer with sigmoid activation
+local W2 = tl.createTensor('W2', {'o', 'h'}, {1, 2}, {-2, 2})
+local Output = tl.sigmoid(tl.einsum('oh,h->o', W2, Hidden))
+-- XOR(1,0) = 0.73 ≈ 1 ✓
+
+-- Run complete demos
+tl.demo()  -- Shows both logic programming and neural network examples
+
+-- See tensor-logic/README.md for complete documentation
+```
+
 ### Running Tests
 
 ```lua
@@ -201,6 +241,13 @@ th node9/example.lua
 
 -- Run integration example
 th example_integration.lua
+
+-- Run tensor logic tests
+th tensor-logic/test/test.lua
+
+-- Run tensor logic examples
+th tensor-logic/example.lua
+th tensor_logic_integration_example.lua
 ```
 
 ## Integration Benefits
@@ -218,6 +265,8 @@ th example_integration.lua
 - **[example_integration.lua](example_integration.lua)** - Working example
 - **[node9/README.md](node9/README.md)** - Node9 OS framework integration guide
 - **[node9/example.lua](node9/example.lua)** - Node9 integration examples
+- **[tensor-logic/README.md](tensor-logic/README.md)** - Tensor Logic neuro-symbolic AI guide
+- **[tensor_logic_integration_example.lua](tensor_logic_integration_example.lua)** - Tensor Logic integration example
 - **Component README files** - Individual module documentation in subdirectories
 
 ## License
