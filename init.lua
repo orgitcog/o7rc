@@ -614,6 +614,24 @@ if pcall(require, 'nnn') then
 end
 
 -- ============================================================================
+-- Tensor Logic (Neuro-Symbolic AI) Module Registration
+-- ============================================================================
+-- Register the tensor-logic module for neuro-symbolic AI
+-- Based on Pedro Domingos' "Tensor Logic: The Language of AI"
+-- https://arxiv.org/abs/2510.12269
+
+if pcall(require, 'tensor-logic') then
+   torch7u.tensor_logic = require('tensor-logic')
+   torch7u.register('tensor-logic', torch7u.tensor_logic, {})
+   torch7u.utils.log("INFO", "Tensor Logic (Neuro-Symbolic AI) module loaded", "torch7u")
+   
+   -- Add convenience accessor
+   torch7u.tl = torch7u.tensor_logic
+else
+   torch7u.utils.log("WARNING", "Tensor Logic module not found", "torch7u")
+end
+
+-- ============================================================================
 -- Initialization Complete
 -- ============================================================================
 
